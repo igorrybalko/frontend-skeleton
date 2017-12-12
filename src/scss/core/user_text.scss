@@ -1,0 +1,92 @@
+.content-container,
+.user_text{
+  padding-bottom: 10px;
+}
+.content-container,
+.custom,
+.user_text{
+  line-height: 1.5;
+  p{text-align: justify;}
+  li{position: relative;}
+  ol,ul{
+    list-style: none;
+    padding-left: 20px;
+    li{
+      margin-bottom: 10px;
+    }
+  }
+  ul{
+    li::before{
+      content: "";
+      top: 8px;
+      width: 9px;
+      height: 9px;
+      background: $link;
+      left: -20px;
+      position: absolute;
+      border-radius: 50%;
+    }
+  }
+  ol{
+    counter-reset: mylist;
+    li::before{
+      counter-increment: mylist;
+      content: counter(mylist) ". ";
+      position: relative;
+      font-weight: bold;
+      float: left;
+      margin-left: -25px;
+      color: $link;
+    }
+  }
+  table{
+    text-align: center;
+    vertical-align: middle;
+    font-size: $f-size;
+    th,td{padding: 10px}
+    thead{
+      background: $link;
+      color: $white;
+    }
+    tbody{
+      color: $tuna;
+      th{
+        // text-align: left;
+      }
+      tr:nth-child(2n){
+        background: $smoky;
+      }
+    }
+  }
+  blockquote{
+    border-left: 3px solid $link;
+    background: $alabaster;
+    margin: 45px 0;
+    padding: 28px 40px 25px 40px;
+    p:last-child{
+      margin: 0;
+    }
+  }
+  img{
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
+  img[style*="float: left"]{
+    margin-right: 15px;
+  }
+  img[style*="float: right"]{
+    margin-left: 15px;
+  }
+  h1{
+    font-size: 30px;
+    margin-bottom: 25px;
+  }
+  h2{
+    font-size: 25px;
+    margin-bottom: 20px;
+  }
+  h3{
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+}

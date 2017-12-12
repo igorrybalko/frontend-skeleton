@@ -1,0 +1,182 @@
+// @font-face {
+//   font-family: 'Gotham Pro';
+//   src: url('../fonts/gotham_pro/GothamProRegular/GothamProRegular.eot');
+//   src: url('../fonts/gotham_pro/GothamProRegular/GothamProRegular.eot?#iefix') format('embedded-opentype'),
+//   url('../fonts/gotham_pro/GothamProRegular/GothamProRegular.woff') format('woff'),
+//   url('../fonts/gotham_pro/GothamProRegular/GothamProRegular.ttf') format('truetype');
+//   font-weight: $regular;
+//   font-style: normal;
+// }
+// @font-face {
+//   font-family: 'Gotham Pro';
+//   src: url('../fonts/gotham_pro/GothamProLight/GothamProLight.eot');
+//   src: url('../fonts/gotham_pro/GothamProLight/GothamProLight.eot?#iefix') format('embedded-opentype'),
+//   url('../fonts/gotham_pro/GothamProLight/GothamProLight.woff') format('woff'),
+//   url('../fonts/gotham_pro/GothamProLight/GothamProLight.ttf') format('truetype');
+//   font-weight: $light;
+//   font-style: normal;
+// }
+// @font-face {
+//   font-family: 'Gotham Pro';
+//   src: url('../fonts/gotham_pro/GothamProMedium/GothamProMedium.eot');
+//   src: url('../fonts/gotham_pro/GothamProMedium/GothamProMedium.eot?#iefix') format('embedded-opentype'),
+//   url('../fonts/gotham_pro/GothamProMedium/GothamProMedium.woff') format('woff'),
+//   url('../fonts/gotham_pro/GothamProMedium/GothamProMedium.ttf') format('truetype');
+//   font-weight: $medium;
+//   font-style: normal;
+// }
+// @font-face {
+//   font-family: 'Gotham Pro';
+//   src: url('../fonts/gotham_pro/GothamProBold/GothamProBold.eot');
+//   src: url('../fonts/gotham_pro/GothamProBold/GothamProBold.eot?#iefix') format('embedded-opentype'),
+//   url('../fonts/gotham_pro/GothamProBold/GothamProBold.woff') format('woff'),
+//   url('../fonts/gotham_pro/GothamProBold/GothamProBold.ttf') format('truetype');
+//   font-weight: $bold;
+//   font-style: normal;
+// }
+*, *:before, *:after{
+  box-sizing: border-box;
+}
+body{
+  background: $bg-base;
+  font: $light $f-size $f-stack;
+  line-height: 1.4;
+  color: $base;
+}
+ul, ol{
+  padding: 0;
+  margin: 0;
+}
+a{
+  outline: none;
+  color: $link;
+  transition: all .3s;
+  text-decoration: none;
+  &:hover, &:focus{
+    outline: none;
+  }
+  &:hover{
+    text-decoration: underline;
+  }
+}
+img{
+  max-width: 100%;
+  height: auto;
+}
+body, html{
+  height: 100%;
+}
+.globwrap{
+  min-height: 100%;
+}
+p{
+  margin: 0 0 10px 0;
+}
+.bgimg {
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+.bgimgcont{
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: contain;
+}
+.dib {
+  display: inline-block;
+  vertical-align: top;
+}
+.d-table{
+  display: table;
+  width: 100%;
+}
+.d-cell{
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+.slick-slide{
+  outline: none;
+  img{
+    display: inline-block;
+  }
+}
+.contenttab{
+  display: none;
+  &.activetab{
+    display: block;
+  }
+}
+.opacity-0{
+  opacity: 0;
+}
+.opacity-1{
+  opacity: 1;
+}
+.wrap{
+  max-width: $contentWidth;
+  margin: 0 auto;
+  position: relative;
+}
+.hidden{
+  display: none;
+}
+h1, h2, h3, h4, h5, h6{
+  margin-top: 0;
+  font-weight: $medium;
+}
+h1{
+  font-size: 30px;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+}
+h2{
+  font-size: 30px;
+  margin-bottom: 40px;
+}
+h3{
+  font-size: 30px;
+  margin-bottom: 40px;
+}
+h4{
+  margin-bottom: 18px;
+}
+.modal_active {
+  overflow: hidden;
+}
+.modal_div {
+  width: 800px;
+  height: 448px;
+  position: fixed;
+  top: 45%; /* отступаем сверху 45%, остальные 5% подвинет скрипт */
+  left: 50%;
+  margin-left: -400px;
+  margin-top: -224px;
+  display: none;
+  z-index: 999;
+  opacity: 0;
+  background: $white;
+  .modal_close {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: 17px;
+    right: -50px;
+    cursor: pointer;
+    display: block;
+    background: url("../images/close.png") no-repeat;
+  }
+}
+/* Подложка */
+.modal_overlay {
+  z-index: 99;
+  position: fixed;
+  background-color: #000;
+  opacity: 0.8;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  display: none;
+}

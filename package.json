@@ -1,0 +1,37 @@
+{
+  "name": "front_skeleton",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server -p 8081"
+  },
+  "author": "Rybalko Igor",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jquery": "^3.2.15",
+    "@types/slick-carousel": "^1.6.32",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-clean-css": "^3.9.0",
+    "gulp-include": "^2.3.1",
+    "gulp-livereload": "^3.8.1",
+    "gulp-pug": "^3.3.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.1",
+    "gulp-uglify": "^3.0.0",
+    "gulp-util": "^3.0.8",
+    "node-notifier": "^5.1.2",
+    "ts-loader": "^3.0.5",
+    "typescript": "^2.5.3",
+    "typings": "^2.1.1",
+    "webpack": "^3.8.1"
+  },
+  "dependencies": {
+    "bootstrap": "^4.0.0-beta.2",
+    "jquery": "^3.2.1",
+    "slick-carousel": "^1.8.1"
+  }
+}
