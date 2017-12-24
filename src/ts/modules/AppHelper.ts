@@ -283,7 +283,7 @@ export default class AppHelper {
             close = $('.modal_close, .modal_overlay'),
             modal = $('.modal_div');
 
-        open_modal.on('click', function(e){
+        open_modal.on('click', function(e:any){
             e.preventDefault();
             $('body').addClass('modal_active');
             let div = $(this).attr('href');
