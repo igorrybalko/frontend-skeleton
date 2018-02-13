@@ -1,11 +1,11 @@
-declare var jQuery:any;
+declare let jQuery: any;
 
 export default class JqPlagins {
 
     constructor() {
         (function ($) {
 
-            $.fn.simpleTabs = (options: object) => {
+            $.fn.simpleTabs = function(options: object){
 
                 let settings = $.extend({
                     'title' : '.nametab',
@@ -33,7 +33,7 @@ export default class JqPlagins {
                 });
             };
 
-            $.fn.simpleAccordion = (options: object) => {
+            $.fn.simpleAccordion = function(options: object){
 
                 let settings = $.extend({
                     'title' : '.title-acc',
@@ -58,7 +58,7 @@ export default class JqPlagins {
             };
 
             //drop down menu
-            $.fn.dropDownMenu = (options: object) => {
+            $.fn.dropDownMenu = function(options: object){
 
                 let settings = $.extend({
                     'time': 100,
