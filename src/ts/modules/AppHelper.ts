@@ -1,8 +1,8 @@
-declare var google:any;
+declare let google:any;
 
 export default class AppHelper {
 
-    initgmap(breadth: number, longitude: number, mapId: string, desk:string = "") {
+    initgmap(breadth: number, longitude: number, mapId: string, desk:string = ""): void {
         let ukCent = new google.maps.LatLng(breadth, longitude);
         let mapOptions = {
             zoom: 14,
@@ -276,7 +276,7 @@ export default class AppHelper {
         });
     }
 
-    modal() {
+    modal(): void {
         let $ = jQuery;
         let overlay = $('.modal_overlay'),
             open_modal = $('.open_modal'),
