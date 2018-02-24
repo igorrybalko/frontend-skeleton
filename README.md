@@ -2,7 +2,7 @@ This package is configured to develop a frontend for sass, typescript and pug. G
 ## Installation options
 - Clone the repo: `git clone https://github.com/igorrybalko/frontend-skeleton.git`
 - Install with [npm](https://www.npmjs.com/): `npm install frontend-skeleton`
-## Use
+## Uses
 - Bootstrap 4
 - jQuery
 - Slick-carousel
