@@ -1,14 +1,27 @@
 {
   "name": "frontend-skeleton",
   "version": "0.1.0",
-  "description": "",
+  "description": "This package is configured to develop a frontend for sass, typescript and pug",
   "main": "index.js",
+  "keywords": [
+    "frontend",
+    "sass",
+    "typescript",
+    "pug",
+    "webpack",
+    "gulp"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "http-server -p 8081"
   },
   "author": "Rybalko Igor",
   "license": "ISC",
+  "homepage": "https://wolfweb.com.ua/verstka/frontend-sborka-web-prilozheniya/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/igorrybalko/frontend-skeleton"
+  },
   "devDependencies": {
     "@types/jquery": "^3.2.15",
     "@types/slick-carousel": "^1.6.32",
