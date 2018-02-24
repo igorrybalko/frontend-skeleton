@@ -32,11 +32,11 @@ frontend-skeleton/
     │    │    └── homepage.scss
     │    └── main.scss
     └── ts
-          ├── modules/
-          │    ├── App.ts
-          │    ├── AppHelper.ts
-          │    └── JqPlugins.ts
-          └── index.ts
+         ├── modules/
+         │    ├── App.ts
+         │    ├── AppHelper.ts
+         │    └── JqPlugins.ts
+         └── index.ts
 ```
 ## Docs
 https://wolfweb.com.ua/verstka/frontend-sborka-web-prilozheniya/
