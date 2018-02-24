@@ -1,12 +1,12 @@
 This package is configured to develop a frontend for sass, typescript and pug. Gulp and Webpack compile files
-##Installation options
+## Installation options
 - Clone the repo: `git clone https://github.com/igorrybalko/frontend-skeleton.git`
 - Install with [npm](https://www.npmjs.com/): `npm install frontend-skeleton`
-##Use
+## Use
 - Bootstrap 4
 - jQuery
 - Slick-carousel
-##Main structure
+## Main structure
 ```
 frontend-skeleton/
 ├── images/
@@ -38,7 +38,7 @@ frontend-skeleton/
           │    └── JqPlugins.ts
           └── index.ts
 ```
-##Docs
+## Docs
 https://wolfweb.com.ua/verstka/frontend-sborka-web-prilozheniya/
-##Author
+## Author
 http://www.linkedin.com/in/igorrybalko
