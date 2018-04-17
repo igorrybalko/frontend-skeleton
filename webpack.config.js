@@ -3,6 +3,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: "./src/ts/index.ts",
@@ -10,13 +11,20 @@ module.exports = {
         path: path.resolve(__dirname, './js'),
         filename: "app.min.js"
     },
+    mode: 'production',
     resolve: {
         // Add '.ts' and '.tsx' as a resolvable extension.
         extensions: [".ts", ".tsx", ".js", ".json"]
     },
     //devtool: 'source-map',
+    optimization: {
+        // splitChunks: {
+        //     chunks: "all"
+        // },
+        minimize: true
+    },
     module: {
-        loaders: [
+        rules: [
             // all files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'
             { test: /\.tsx?$/, loader: "ts-loader" }
         ]
@@ -25,12 +33,17 @@ module.exports = {
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery'
+        }),
+        new UglifyJsPlugin({
+             uglifyOptions:{
+                compress: {
+                    warnings: false
+                },
+                output: {
+                    comments: false
+                },
+                sourceMap: true
+            }
         })
-        // new webpack.optimize.UglifyJsPlugin({
-        //     compress: {
-        //         warnings: false
-        //     },
-        //     sourceMap: true
-        // })
     ]
 }
