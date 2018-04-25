@@ -1,6 +1,6 @@
 {
   "name": "frontend-skeleton",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "This package is configured to develop a frontend for sass, typescript and pug",
   "main": "index.js",
   "keywords": [
@@ -13,7 +13,9 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "http-server -p 8081"
+    "start": "npm run dev",
+    "dev": "cross-env NODE_ENV=development gulp",
+    "prod": "cross-env NODE_ENV=production gulp"
   },
   "author": "Rybalko Igor",
   "license": "ISC",
@@ -25,17 +27,19 @@
   "devDependencies": {
     "@types/jquery": "^3.3.1",
     "@types/slick-carousel": "^1.6.32",
+    "cross-env": "^5.1.4",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^5.0.0",
     "gulp-clean-css": "^3.9.3",
-    "gulp-include": "^2.3.1",
-    "gulp-livereload": "^3.8.1",
+    "gulp-empty": "^0.1.2",
+    "gulp-imagemin": "^4.1.0",
     "gulp-pug": "^4.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^4.0.1",
+    "gulp-shell": "^0.6.5",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^3.0.0",
-    "gulp-util": "^3.0.8",
+    "http-server": "^0.11.1",
     "node-notifier": "^5.2.1",
     "ts-loader": "^4.2.0",
     "typings": "^2.1.1",

@@ -9,10 +9,10 @@ This package is configured to develop a frontend for sass, typescript and pug. G
 ## Main structure
 ```
 frontend-skeleton/
-├── images/
-│    ├── marker.png
-│    └── noimage.png
 └── src/
+    ├── images/
+    │    ├── marker.png
+    │    └── noimage.png
     ├── pug/
     │    ├── includes/
     │    │    ├── footer.pug

@@ -1,27 +1,25 @@
 //webpack.config.js
 'use strict';
 
-const path = require('path');
-const webpack = require('webpack');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const path = require('path'),
+    webpack = require('webpack'),
+    UglifyJsPlugin = require('uglifyjs-webpack-plugin'),
+    production = ( process.env.NODE_ENV == 'production' );
 
 module.exports = {
     entry: "./src/ts/index.ts",
     output: {
-        path: path.resolve(__dirname, './js'),
+        path: path.resolve(__dirname, './build/js'),
         filename: "app.min.js"
     },
-    mode: 'production',
+    mode: process.env.NODE_ENV,
     resolve: {
         // Add '.ts' and '.tsx' as a resolvable extension.
         extensions: [".ts", ".tsx", ".js", ".json"]
     },
     //devtool: 'source-map',
     optimization: {
-        // splitChunks: {
-        //     chunks: "all"
-        // },
-        minimize: true
+        minimize: production
     },
     module: {
         rules: [
@@ -35,14 +33,12 @@ module.exports = {
             jQuery: 'jquery'
         }),
         new UglifyJsPlugin({
-             uglifyOptions:{
-                compress: {
-                    warnings: false
-                },
+            uglifyOptions:{
+                compress: production ? {warnings: false} : false,
                 output: {
-                    comments: false
+                    comments: !production
                 },
-                sourceMap: true
+                sourceMap: production
             }
         })
     ]

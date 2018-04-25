@@ -1,13 +1,15 @@
+const production = ( process.env.NODE_ENV == 'production' );
+
 //base part
 let gulp = require('gulp'),
     rename  = require('gulp-rename'),
     sourcemaps = require('gulp-sourcemaps'),
     webpack  = require('webpack'),
-    gutil    = require('gulp-util'),
     notifier = require('node-notifier'),
-    path = require('path'),
-    include = require('gulp-include'),
-    pug = require('gulp-pug');
+    pug = require('gulp-pug'),
+    nothing = require("gulp-empty"),
+    shell = require('gulp-shell'),
+    imagemin = require('gulp-imagemin');
 
 //css part
 let sass = require('gulp-sass'),
@@ -20,18 +22,35 @@ let statsLog      = { // для красивых логов в консоли
     reasons: true
 };
 
+let tasks = ['build', 'gulp_watch', 'server'];
+
+if(production){
+    tasks = ['build'];
+}
+
+const buildFolder = 'build',
+    port = 8083;
+
+let pathFiles = {
+    build : {
+        html : './' + buildFolder + '/',
+        js : './' + buildFolder + '/js/',
+        css  : './' + buildFolder + '/css/',
+        img : './' + buildFolder + '/images/',
+    },
+    src : {
+        htmlPages : './src/pug/pages/*.pug',
+        htmlAll : './src/pug/**/*.pug',
+        js : './src/ts/**/*.ts',
+        css  : './src/scss/**/*.scss',
+        img : './src/images/**/*.*',
+    }
+};
+
 function swallowError(error){
     console.log(error.toString());
     this.emit('end');
 }
-
-gulp.task('default', ['gulp_watch']);
-
-gulp.task('gulp_watch', function () {
-    gulp.watch('./src/scss/**/*.scss', ['styles']);
-    gulp.watch('./src/ts/**/*.ts', ['scripts']);
-    gulp.watch('./src/pug/**/*.pug', ['views']);
-});
 
 gulp.task('styles', function () {
     return gulp.src('./src/scss/main.scss')
@@ -39,13 +58,13 @@ gulp.task('styles', function () {
         .pipe(sass().on('error', sass.logError))
         .on('error', swallowError)
         .pipe(autoprefixer({
-            browsers: ['last 20 versions', '> 5%'],
+            browsers: ['last 10 versions', '> 5%'],
             cascade: false
         }))
         .pipe(cleanCSS())
         .pipe(rename('style.min.css'))
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('./css'));
+        .pipe(gulp.dest(pathFiles.build.css));
 });
 
 gulp.task('scripts', (done) => {
@@ -53,18 +72,18 @@ gulp.task('scripts', (done) => {
     console.log(done);
 
     function onError(error) {
-        let formatedError = new gutil.PluginError('webpack', error);
 
+        console.log(error);
         notifier.notify({ // чисто чтобы сразу узнать об ошибке
-            title: `Error: ${formatedError.plugin}`,
-            message: formatedError.message
+            title: `Error: js`,
+            message: error
         });
 
-        done(formatedError);
+        done();
     }
 
     function onSuccess(detailInfo) {
-        gutil.log('[webpack]', detailInfo);
+        console.log(detailInfo);
         done();
     }
 
@@ -84,10 +103,29 @@ gulp.task('scripts', (done) => {
 });
 
 gulp.task('views', function() {
-    return gulp.src('./src/pug/pages/**/*.pug')
+    return gulp.src(pathFiles.src.htmlPages)
         .pipe(pug({
             pretty: true
         }))
         .on('error', swallowError)
-        .pipe(gulp.dest('./'));
+        .pipe(gulp.dest(pathFiles.build.html));
 });
+
+gulp.task('images', function() {
+    gulp.src( pathFiles.src.img )
+        .pipe( production ? imagemin() : nothing() )
+        .pipe( gulp.dest(pathFiles.build.img) )
+});
+
+gulp.task('server', shell.task('http-server ./' + buildFolder + ' -p ' + port));
+
+gulp.task('build', ['styles', 'scripts', 'views', 'images']);
+
+gulp.task('gulp_watch', function () {
+    gulp.watch(pathFiles.src.css, ['styles']);
+    gulp.watch(pathFiles.src.js, ['scripts']);
+    gulp.watch(pathFiles.src.htmlAll, ['views']);
+    gulp.watch(pathFiles.src.img, ['images']);
+});
+
+gulp.task('default', tasks);
