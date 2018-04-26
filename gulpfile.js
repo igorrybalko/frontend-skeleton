@@ -22,14 +22,8 @@ let statsLog      = { // для красивых логов в консоли
     reasons: true
 };
 
-let tasks = ['build', 'gulp_watch', 'server'];
-
-if(production){
-    tasks = ['build'];
-}
-
 const buildFolder = 'build',
-    port = 8083;
+    port = 8081;
 
 let pathFiles = {
     build : {
@@ -52,7 +46,7 @@ function swallowError(error){
     this.emit('end');
 }
 
-gulp.task('styles', function () {
+gulp.task('styles', function() {
     return gulp.src('./src/scss/main.scss')
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
@@ -68,8 +62,6 @@ gulp.task('styles', function () {
 });
 
 gulp.task('scripts', (done) => {
-
-    console.log(done);
 
     function onError(error) {
 
@@ -112,20 +104,28 @@ gulp.task('views', function() {
 });
 
 gulp.task('images', function() {
-    gulp.src( pathFiles.src.img )
+    return gulp.src( pathFiles.src.img )
         .pipe( production ? imagemin() : nothing() )
         .pipe( gulp.dest(pathFiles.build.img) )
 });
 
+gulp.task('gulp_watch', function () {
+    gulp.watch(pathFiles.src.css, gulp.series('styles'));
+    gulp.watch(pathFiles.src.js, gulp.series('scripts'));
+    gulp.watch(pathFiles.src.htmlAll, gulp.series('views'));
+    gulp.watch(pathFiles.src.img, gulp.series('images'));
+});
+
 gulp.task('server', shell.task('http-server ./' + buildFolder + ' -p ' + port));
 
-gulp.task('build', ['styles', 'scripts', 'views', 'images']);
+gulp.task('build', gulp.series('styles', 'scripts', 'views', 'images'));
 
-gulp.task('gulp_watch', function () {
-    gulp.watch(pathFiles.src.css, ['styles']);
-    gulp.watch(pathFiles.src.js, ['scripts']);
-    gulp.watch(pathFiles.src.htmlAll, ['views']);
-    gulp.watch(pathFiles.src.img, ['images']);
-});
+gulp.task('serverAndWatch', gulp.parallel('server', 'gulp_watch'));
+
+let tasks = gulp.series('build', 'serverAndWatch');
+
+if(production){
+    tasks = gulp.series('build');
+}
 
 gulp.task('default', tasks);
