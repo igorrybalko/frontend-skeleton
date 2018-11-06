@@ -9,7 +9,7 @@ const path = require('path'),
 module.exports = {
     entry: "./src/ts/index.ts",
     output: {
-        path: path.resolve(__dirname, './build/js'),
+        path: path.resolve(__dirname, './dist/js'),
         filename: "app.min.js"
     },
     mode: process.env.NODE_ENV,

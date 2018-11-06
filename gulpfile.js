@@ -22,7 +22,7 @@ let statsLog      = { // для красивых логов в консоли
     reasons: true
 };
 
-const buildFolder = 'build',
+const buildFolder = 'dist',
     port = 8081;
 
 let pathFiles = {
@@ -55,7 +55,7 @@ gulp.task('styles', function() {
             browsers: ['last 10 versions', '> 5%'],
             cascade: false
         }))
-        .pipe(cleanCSS())
+        .pipe(cleanCSS({level: {1: {specialComments: false}}}))
         .pipe(rename('style.min.css'))
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(pathFiles.build.css));
