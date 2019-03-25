@@ -2,7 +2,7 @@ declare let google:any;
 
 export default class AppHelper {
 
-    initgmap(breadth: number, longitude: number, mapId: string, desk:string = ""): void {
+    initgmap(breadth: number, longitude: number, mapId: string, desc:string = ""): void {
         let ukCent = new google.maps.LatLng(breadth, longitude);
         let mapOptions = {
             zoom: 14,
@@ -269,7 +269,7 @@ export default class AppHelper {
         });
 
         let infowindow = new google.maps.InfoWindow({
-            content: desk
+            content: desc
         });
         marker.addListener('click', function() {
             infowindow.open(map, marker);

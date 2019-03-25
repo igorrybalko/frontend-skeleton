@@ -1,14 +1,15 @@
 const production = ( process.env.NODE_ENV == 'production' );
 
 //base part
-let gulp = require('gulp'),
+
+let {src, dest, parallel, series, watch} = require('gulp'),
     rename  = require('gulp-rename'),
     sourcemaps = require('gulp-sourcemaps'),
     webpack  = require('webpack'),
     notifier = require('node-notifier'),
     pug = require('gulp-pug'),
     nothing = require("gulp-empty"),
-    shell = require('gulp-shell'),
+    exec = require('child_process').exec,
     imagemin = require('gulp-imagemin');
 
 //css part
@@ -46,22 +47,22 @@ function swallowError(error){
     this.emit('end');
 }
 
-gulp.task('styles', function() {
-    return gulp.src('./src/scss/main.scss')
+function styles() {
+    return src('./src/scss/main.scss')
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
         .on('error', swallowError)
         .pipe(autoprefixer({
-            browsers: ['last 10 versions', '> 5%'],
+            browsers: ['last 5 versions', '> 5%'],
             cascade: false
         }))
         .pipe(cleanCSS({level: {1: {specialComments: false}}}))
         .pipe(rename('style.min.css'))
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest(pathFiles.build.css));
-});
+        .pipe(dest(pathFiles.build.css));
+}
 
-gulp.task('scripts', (done) => {
+function scripts(done){
 
     function onError(error) {
 
@@ -92,40 +93,40 @@ gulp.task('scripts', (done) => {
     // run webpack
     webpack(webpackConfig, onComplete);
 
-});
+}
 
-gulp.task('views', function() {
-    return gulp.src(pathFiles.src.htmlPages)
+function views() {
+    return src(pathFiles.src.htmlPages)
         .pipe(pug({
             pretty: true
         }))
         .on('error', swallowError)
-        .pipe(gulp.dest(pathFiles.build.html));
-});
-
-gulp.task('images', function() {
-    return gulp.src( pathFiles.src.img )
-        .pipe( production ? imagemin() : nothing() )
-        .pipe( gulp.dest(pathFiles.build.img) )
-});
-
-gulp.task('gulp_watch', function () {
-    gulp.watch(pathFiles.src.css, gulp.series('styles'));
-    gulp.watch(pathFiles.src.js, gulp.series('scripts'));
-    gulp.watch(pathFiles.src.htmlAll, gulp.series('views'));
-    gulp.watch(pathFiles.src.img, gulp.series('images'));
-});
-
-gulp.task('server', shell.task('http-server ./' + buildFolder + ' -p ' + port));
-
-gulp.task('build', gulp.series('styles', 'scripts', 'views', 'images'));
-
-gulp.task('serverAndWatch', gulp.parallel('server', 'gulp_watch'));
-
-let tasks = gulp.series('build', 'serverAndWatch');
-
-if(production){
-    tasks = gulp.series('build');
+        .pipe(dest(pathFiles.build.html));
 }
 
-gulp.task('default', tasks);
+function images() {
+    return src( pathFiles.src.img )
+        .pipe( production ? imagemin() : nothing() )
+        .pipe( dest(pathFiles.build.img) )
+}
+
+function gulpWatch(done) {
+    watch(pathFiles.src.css, styles);
+    watch(pathFiles.src.js, scripts);
+    watch(pathFiles.src.htmlAll, views);
+    watch(pathFiles.src.img, images);
+}
+
+function server(done){
+    exec('http-server ./' + buildFolder + ' -p ' + port);
+    done();
+}
+
+exports.styles = styles;
+exports.scripts = scripts;
+exports.views = views;
+exports.images = images;
+exports.gulpWatch = gulpWatch;
+exports.server = server;
+exports.build = series(styles, scripts, views, images);
+exports.default = series( series(styles, scripts, views, images),  parallel(server, gulpWatch));

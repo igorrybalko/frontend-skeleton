@@ -3,23 +3,44 @@
 
 const path = require('path'),
     webpack = require('webpack'),
-    UglifyJsPlugin = require('uglifyjs-webpack-plugin'),
+    TerserPlugin = require('terser-webpack-plugin'),
     production = ( process.env.NODE_ENV == 'production' );
 
 module.exports = {
     entry: "./src/ts/index.ts",
     output: {
         path: path.resolve(__dirname, './dist/js'),
-        filename: "app.min.js"
+        filename: "[name].min.js"
     },
     mode: process.env.NODE_ENV,
     resolve: {
         // Add '.ts' and '.tsx' as a resolvable extension.
         extensions: [".ts", ".tsx", ".js", ".json"]
     },
-    //devtool: 'source-map',
+    devtool: 'source-map',
     optimization: {
-        minimize: production
+        minimize: production,
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all'
+                }
+            }
+        },
+        minimizer: [
+            new TerserPlugin({
+                parallel: true,
+                terserOptions: {
+                    ecma: 5,
+                    compress: production,
+                    output: {
+                        comments: !production
+                    },
+                },
+            })
+        ]
     },
     module: {
         rules: [
@@ -31,15 +52,6 @@ module.exports = {
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery'
-        }),
-        new UglifyJsPlugin({
-            uglifyOptions:{
-                compress: production ? {warnings: false} : false,
-                output: {
-                    comments: !production
-                },
-                sourceMap: production
-            }
         })
     ]
 }
