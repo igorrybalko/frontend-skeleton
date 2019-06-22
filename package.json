@@ -1,6 +1,6 @@
 {
   "name": "frontend-skeleton",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "This package is configured to develop a frontend for sass, typescript and pug",
   "main": "index.js",
   "keywords": [
@@ -19,7 +19,7 @@
   },
   "author": "Rybalko Igor",
   "license": "ISC",
-  "homepage": "https://wolfweb.com.ua/verstka/frontend-sborka-web-prilozheniya/",
+  "homepage": "https://greencomet.net/javascript/frontend-skeleton/",
   "repository": {
     "type": "git",
     "url": "https://github.com/igorrybalko/frontend-skeleton"

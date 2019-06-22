@@ -39,6 +39,6 @@ frontend-skeleton/
          └── index.ts
 ```
 ## Docs
-https://wolfweb.com.ua/verstka/frontend-sborka-web-prilozheniya/
+https://greencomet.net/javascript/frontend-skeleton
 ## Author
 http://www.linkedin.com/in/igorrybalko
