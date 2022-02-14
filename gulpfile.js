@@ -13,7 +13,7 @@ let {src, dest, parallel, series, watch} = require('gulp'),
     imagemin = require('gulp-imagemin');
 
 //css part
-let sass = require('gulp-sass'),
+let sass = require('gulp-sass')(require('sass')),
     cleanCSS = require('gulp-clean-css'),
     autoprefixer = require('gulp-autoprefixer');
 
