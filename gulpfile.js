@@ -67,7 +67,7 @@ function scripts(done){
     function onError(error) {
 
         console.log(error);
-        notifier.notify({ // чисто чтобы сразу узнать об ошибке
+        notifier.notify({ // чтобы сразу узнать об ошибке
             title: `Error: js`,
             message: error
         });

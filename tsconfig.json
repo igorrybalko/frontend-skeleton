@@ -10,6 +10,11 @@
     "./src/ts/index.ts"
   ],
   "include": [
-    "./node_modules/@types/slick-carousel/index.d.ts"
+    "./node_modules/@types/slick-carousel/index.d.ts",
+    "./node_modules/@types/jquery/index.d.ts",
+    "./node_modules/@types/google.maps/index.d.ts",
+    "./src/ts/types/jquerySimpleTabs.d.ts",
+    "./src/ts/types/jquerySimpleAccordion.d.ts",
+    "./src/ts/types/jqueryDropDownMenu.d.ts"
   ]
 }
